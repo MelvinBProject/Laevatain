@@ -1,0 +1,60 @@
+name: laevatain-audio-lab
+
+services:
+  yt-cipher:
+    image: ghcr.io/kikkia/yt-cipher:master@sha256:4c5ec381ff57336cfc24822d2b526a5ad7cd0171f61065a1bbc87bb736842449
+    restart: unless-stopped
+    environment:
+      API_TOKEN: ${YOUTUBE_CIPHER_TOKEN:?Define YOUTUBE_CIPHER_TOKEN in .env}
+      OVERRIDE_PLAYER_VARIANT: IAS
+      MAX_THREADS: "2"
+    networks:
+      - audio
+    mem_limit: 384m
+    cpus: 0.5
+    pids_limit: 128
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: "2"
+
+  lavalink:
+    image: ghcr.io/lavalink-devs/lavalink:4.2.2-alpine@sha256:96be2be7ee50d35a9bd42c8c7b99e2a4b741f09123066c1ebb9e014dd7db204d
+    restart: unless-stopped
+    environment:
+      LAVALINK_PASSWORD: ${LAVALINK_PASSWORD:?Define LAVALINK_PASSWORD in .env}
+      YOUTUBE_CIPHER_TOKEN: ${YOUTUBE_CIPHER_TOKEN:?Define YOUTUBE_CIPHER_TOKEN in .env}
+      YOUTUBE_OAUTH_ENABLED: ${YOUTUBE_OAUTH_ENABLED:-false}
+      YOUTUBE_OAUTH_REFRESH_TOKEN: ${YOUTUBE_OAUTH_REFRESH_TOKEN:-}
+      YOUTUBE_PO_TOKEN: ${YOUTUBE_PO_TOKEN:-}
+      YOUTUBE_PO_VISITOR_DATA: ${YOUTUBE_PO_VISITOR_DATA:-}
+      _JAVA_OPTIONS: -Xms128m -Xmx512m
+    volumes:
+      - ./lavalink/application.yml:/opt/Lavalink/application.yml:ro
+    ports:
+      - "127.0.0.1:2333:2333"
+    networks:
+      - audio
+    depends_on:
+      - yt-cipher
+    mem_limit: 1g
+    cpus: 1.0
+    pids_limit: 256
+    cap_drop:
+      - ALL
+    security_opt:
+      - no-new-privileges:true
+    logging:
+      driver: json-file
+      options:
+        max-size: 5m
+        max-file: "2"
+
+networks:
+  audio:
+    driver: bridge

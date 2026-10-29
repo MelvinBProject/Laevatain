@@ -1,0 +1,59 @@
+server:
+  port: 2333
+  address: 0.0.0.0
+
+lavalink:
+  plugins:
+    - dependency: dev.lavalink.youtube:youtube-plugin:f45bbb7aebfcbc1c553769e04af6cd43afa8b7c3
+      snapshot: true
+  server:
+    password: ${LAVALINK_PASSWORD}
+    sources:
+      youtube: false
+      soundcloud: true
+      bandcamp: true
+      twitch: true
+      vimeo: true
+      nico: true
+      http: true
+      local: false
+    bufferDurationMs: 400
+    frameBufferDurationMs: 5000
+    playerUpdateInterval: 5
+    youtubePlaylistLoadLimit: 6
+    timeouts:
+      connectTimeoutMs: 10000
+      connectionRequestTimeoutMs: 10000
+      socketTimeoutMs: 10000
+
+plugins:
+  youtube:
+    enabled: true
+    allowSearch: true
+    allowDirectVideoIds: true
+    allowDirectPlaylistIds: true
+    clients:
+      - TV
+      - IOS
+      - TVHTML5_SIMPLY
+      - MWEB
+      - WEB
+      - WEBEMBEDDED
+      - ANDROID_VR
+      - MUSIC
+    remoteCipher:
+      url: http://yt-cipher:8001
+      password: ${YOUTUBE_CIPHER_TOKEN}
+      userAgent: Laevatain-Lab
+    oauth:
+      enabled: ${YOUTUBE_OAUTH_ENABLED:false}
+      refreshToken: ${YOUTUBE_OAUTH_REFRESH_TOKEN:}
+      skipInitialization: true
+    pot:
+      token: ${YOUTUBE_PO_TOKEN:}
+      visitorData: ${YOUTUBE_PO_VISITOR_DATA:}
+
+logging:
+  level:
+    root: INFO
+    dev.lavalink.youtube.http.YoutubeOauth2Handler: OFF

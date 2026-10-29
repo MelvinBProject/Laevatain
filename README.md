@@ -94,7 +94,30 @@ LAVALINK_IDENTIFIER=laevatain
 
 Los campos vacios se completan con los datos de quien lo vaya a ejecutar, no hay credenciales compartidas
 
-Se necesita un Lavalink v4 propio con las fuentes de audio configuradas, el repositorio no instala Lavalink ni un cipher y no publica la configuracion de mi servidor
+El repositorio incluye `compose.audio.yaml` y `lavalink/application.yml` para levantar un Lavalink v4 y un yt-cipher independientes, sin usar los servicios privados de mi servidor
+
+Antes de iniciar, completar tambien `YOUTUBE_CIPHER_TOKEN` con otra contraseña nueva en el `.env`, las dos contraseñas de audio deben ser distintas y no deben ser las del servidor real
+
+Con Docker instalado y encendido
+
+```bash
+docker compose -f compose.audio.yaml config --quiet
+docker compose -f compose.audio.yaml up -d
+docker compose -f compose.audio.yaml ps
+python main.py
+```
+
+Lavalink queda disponible solo en `127.0.0.1:2333` para el programa Python, el cipher no publica ningun puerto y solo se comunica con Lavalink dentro de Docker
+
+Para apagar solamente este entorno de audio
+
+```bash
+docker compose -f compose.audio.yaml stop
+```
+
+Esta plantilla no debe ejecutarse en la VPS de produccion, no se conecta a las redes de Amiya ni reemplaza sus contenedores
+
+Los detalles y limites estan en [AUDIO.md](AUDIO.md)
 
 Despues de reiniciar el programa, usar `/set channel` como propietario para elegir el canal de musica y entrar a un canal de voz
 
