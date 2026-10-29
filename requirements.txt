@@ -1,0 +1,9 @@
+discord.py[voice]==2.7.1
+python-dotenv==1.1.1
+wavelink==3.5.2
+yt-dlp==2026.7.4
+fastapi==0.142.2
+uvicorn==0.54.0
+httpx==0.28.1
+pytest==9.1.1
+Pillow==12.3.0

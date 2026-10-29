@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Laevatain · Music library</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <link rel="stylesheet" href="/static/presentation.css">
+  <link rel="stylesheet" href="/static/dark.css">
+  <script src="/static/app.js?v=playlist-embed-1" defer></script>
+</head>
+<body>
+  <section id="login-screen">
+    <div class="login-art"><span class="wordmark">LAEVATAIN <small>MUSIC / 01</small></span><img src="/static/cover.svg" alt="Music library animation"><h1>Your music,<br>all in one place</h1><p>Your Discord library, now with a space of its own</p></div>
+    <form id="login-form"><span class="eyebrow">WELCOME TO THE LAB</span><h2>Sign in to your library</h2><p>Playlists, favorites and songs worth playing again</p><label>Username<input name="username" autocomplete="username" minlength="3" maxlength="32" pattern="[A-Za-z0-9_]+" required></label><label>Password<input name="password" type="password" autocomplete="current-password" minlength="10" maxlength="128" required></label><button class="primary" type="submit">Sign in</button><button type="button" id="register" hidden>Create an account</button><p id="login-error" role="alert"></p><small id="login-note">Local presentation · Owner access only</small></form>
+  </section>
+  <div id="app" hidden>
+    <aside><div class="wordmark">LAEVATAIN<small>MUSIC LIBRARY</small></div><nav aria-label="Main navigation"><button data-view="library" class="active">01 <span>My library</span></button><button data-view="favorites">02 <span>Favorites</span></button><button data-view="community">03 <span>Community</span></button><button data-view="profile">04 <span>My profile</span></button><button data-view="database" id="admin-nav" hidden>05 <span>Database</span></button></nav><div class="sidebar-note"><span class="status-dot"></span><strong>Powered by Amiya’s music engine</strong></div><div class="account"><span id="account-name"></span><button id="logout">Sign out</button></div></aside>
+    <main><header><div><span class="eyebrow" id="section-label">MY SPACE</span><h1 id="page-title">My library</h1></div><div class="header-actions"><input id="filter" type="search" placeholder="Search playlists" aria-label="Search playlists"><button class="primary" id="new-playlist">+ New playlist</button></div></header>
+      <p id="view-description" class="muted">Open a playlist or drag it onto another to merge their songs</p>
+      <div id="connection-notice" class="connection-notice" role="status" hidden></div>
+      <section id="overview" class="overview" aria-label="Library overview"></section>
+      <div id="community-filters" class="toolbar" hidden></div>
+      <section id="library-view"><div id="playlist-grid" class="playlist-grid"></div><section id="playlist-detail" hidden></section></section>
+      <section id="favorites-view" hidden></section><section id="profile-view" hidden></section>
+      <section id="database-view" hidden><div class="teacher-intro"><div><span class="eyebrow">ADMIN ONLY</span><h2>How the library is built</h2><p>These are the actual lab tables, not a picture of the schema</p></div><button id="explain-schema" class="primary">See how tables are created</button></div><p id="schema-notice" class="muted"></p><div id="schema-steps" aria-live="polite"></div><div id="schema-relations"></div><div id="schema-grid" class="schema-grid"></div><section id="table-records" hidden></section></section>
+    </main>
+    <section id="mini-player" hidden aria-label="Discord music player">
+      <div class="player-track"><span class="eyebrow">PLAYING IN DISCORD</span><strong id="player-title"></strong><small id="player-author"></small></div>
+      <div class="player-center"><div class="player-buttons"><button id="player-pause" type="button">Pause</button><button id="player-skip" type="button">Next song →</button><span id="player-queue"></span></div><div class="player-progress"><span id="player-elapsed">0:00</span><input id="player-seek" type="range" min="0" max="1" value="0" step="1000" aria-label="Song position"><span id="player-duration">0:00</span></div><small id="player-hint"></small></div>
+    </section>
+    <footer><span id="bot-status">Bot offline</span><span id="audio-status">Lavalink unavailable</span><span id="now-playing">Audio plays in Discord</span><span id="sync-status">Library synced</span></footer>
+  </div>
+  <dialog id="modal"><div class="modal-heading"><h2 id="modal-title"></h2><button id="modal-close" aria-label="Close">×</button></div><div id="modal-content"></div><p id="modal-error" role="alert"></p></dialog>
+  <div id="toast" role="status" aria-live="polite" hidden></div>
+</body>
+</html>
