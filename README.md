@@ -176,12 +176,15 @@ La musica depende de Discord, Lavalink y las fuentes externas, encontrar una can
 
 Es un proyecto de laboratorio, no un servicio con disponibilidad garantizada ni una plataforma de reproduccion independiente de Discord
 
-## Que deje fuera por privacidad
+## YouTube al usar una VPS
 
-No se incluyen tokens, contraseñas reales, archivos `.env`, IP de la VPS, claves SSH, certificados, registros, bases de datos reales ni archivos de otros servicios
+La reproduccion puede funcionar desde el WiFi de casa y fallar al mover Lavalink a una VPS, ya que YouTube puede restringir las peticiones segun la IP de salida o pedir autenticacion
 
-Los usuarios y contraseñas que aparecen en `tests/` son datos de prueba y no sirven para iniciar sesion en una instalacion real
+No significa que todas las VPS fallen ni que una conexion domestica funcione siempre
 
-Tampoco se incluyen los GIF usados en la presentacion, la portada publica es un SVG simple y se pueden agregar GIF propios en `gifs/1.gif` y `gifs/3.gif` para el panel de Discord
+Si se va a usar en una VPS, revisar la documentacion oficial de Lavalink y de su plugin youtube-source para configurar los clientes y la autenticacion que correspondan al error, manteniendo las credenciales en privado
 
-No subir la carpeta `data/` ni el `.env` al hacer cambios
+El cipher resuelve firmas de las URLs, pero no elimina los bloqueos de IP ni los requisitos de inicio de sesion
+
+- [Documentacion oficial de Lavalink](https://lavalink.dev/)
+- [Fuente y documentacion oficial del plugin de YouTube](https://github.com/lavalink-devs/youtube-source)
